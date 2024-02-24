@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Lambda application that serves HTMX.
+Globals:
+  Function:
+    Timeout: 5
+    MemorySize: 128
+Resources:
+  WebFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: go1.x
+      SamResourceId: WebFunction
+    Properties:
+      CodeUri: WebFunction
+      Handler: bootstrap
+      Runtime: provided.al2023
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
